@@ -13,7 +13,7 @@ int main(){
 	printf("%d", result);
 }
 
-int fib(int n){ //ตÝน้
+int fib(int n){ 
 	if (n == 0)
 		return 0;
 	if (n == 1)
