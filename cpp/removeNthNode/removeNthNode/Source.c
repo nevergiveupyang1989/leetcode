@@ -17,9 +17,12 @@ struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
 		return NULL;
 
 	fastNode = head;
-	removeNode = head;
+	removeNode = NULL;
 
-	while (n-1>0)
+	if (1 == n && head->next==NULL)
+		return NULL;
+
+	while (n-2>0)
 	{
 		fastNode = fastNode->next;
 		n--;
@@ -30,10 +33,30 @@ struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
 	{
 		preRemoveNode = removeNode;
 		fastNode = fastNode->next;
-		removeNode = removeNode->next;
+
+		if (NULL == removeNode)
+			removeNode = head;
+		else
+			removeNode = removeNode->next;
 	}
 
-	preRemoveNode->next = removeNode->next;
+	if (NULL==preRemoveNode && n==2)
+	{
+		return head->next;
+	}
+	
+	if (NULL==preRemoveNode && n==1)
+	{
+		head->next = NULL;
+	}
+
+	if (1==n)
+	{
+		removeNode->next = NULL;
+	}
+
+	if (removeNode!=NULL && preRemoveNode!=NULL && n!=1)
+		preRemoveNode->next = removeNode->next;
 	//free(removeNode);
 
 	return head;
@@ -53,10 +76,10 @@ void main(){
 
 	head1.next = &head2;
 	head2.next = &head3;
-	head3.next = &head4;
+	head3.next = NULL;
 	head4.next = NULL;
 
-	result = removeNthFromEnd(&head1,2);
+	result = removeNthFromEnd(&head1,1);
 
 	while (NULL!=result)
 	{
