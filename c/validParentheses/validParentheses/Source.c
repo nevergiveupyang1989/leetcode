@@ -67,7 +67,7 @@ bool isValid(char* s) {
 
 		if (s[i]==')')
 		{
-			if (-1==ele || ele == '(')
+			if (ele == '(')
 			{
 				tmp = pop(pStack);
 				i++;
@@ -77,7 +77,7 @@ bool isValid(char* s) {
 
 		else if (s[i] == ']')
 		{
-			if (-1 == ele || ele == '[')
+			if (ele == '[')
 			{
 				tmp = pop(pStack);
 				i++;
@@ -87,7 +87,7 @@ bool isValid(char* s) {
 
 		else if (s[i] == '}')
 		{
-			if (-1 == ele || ele == '{')
+			if (ele == '{')
 			{
 				tmp = pop(pStack);
 				i++;
