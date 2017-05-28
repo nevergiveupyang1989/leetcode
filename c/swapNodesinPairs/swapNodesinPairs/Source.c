@@ -74,62 +74,39 @@ struct ListNode* swapPairs(struct ListNode* head) {
 	int i;
 	int firstFlag;
 
-	if (NULL == head || NULL==head->next)
+	if (NULL == head || NULL == head->next)
 		return head;
 
-	i = 0;
+	l1Header = head;
+	l2Header = head->next;
+	l1 = l1Header;
+	l2 = l2Header;
+
 	firstFlag = 1;
-	l1 = NULL;
-	l2 = NULL;
-	tmp = head;
-	l1Header = NULL;
-	l2Header = NULL;
-	delNode = NULL;
-	while (tmp)
+	while (l1->next)
 	{
-		if (firstFlag==1)
+		if (NULL!=l1 && NULL != l1->next)
 		{
-			l1Header = head;
-			l2Header = head->next;
-			l1 = l1Header;
-			l2 = l2Header;
-
-			if (head->next!=NULL)
-				tmp = (head->next)->next;
-			firstFlag = 0;
-			i=2;
-			continue;
-		}
-
-		if (i % 2 == 0)
-		{
-			l1->next = tmp;
-			l1 = tmp;
-
-			if (tmp->next != NULL)
+			if (l1->next->next==NULL)
 			{
-				if (!tmp->next->next)
-				{
-					delNode = tmp;
-				}
+				l1->next = NULL;
 			}
-			tmp = tmp->next;
+
+			else
+				l1 = l1->next->next;
 		}
-		else
+
+		if (NULL!=l2 && NULL != l2->next)
+			l2 = l2->next->next;
+
+		if (firstFlag)
 		{
-			if (l2)
-				l2->next = tmp;
-			l2 = tmp;
-			tmp = tmp->next;
+			l1Header->next = l1;
+			l2Header->next = l2;
+			firstFlag = 0;
 		}
-		i++;
 	}
-
-	if (delNode != NULL)
-	{
-		delNode->next = NULL;
-	}
-
+	
 	header = mergeTwoLists(l2Header, l1Header);
 
 	return header;
@@ -157,8 +134,8 @@ void main()
 
 	l1node1->next = l1node2;
 	l1node2->next = l2node1;
-	l2node1->next = NULL;
-
+	l2node1->next = l2node2;
+	l2node2->next = NULL;
 	result = swapPairs(l1node1);
 
 	while (result)
