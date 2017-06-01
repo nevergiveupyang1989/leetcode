@@ -6,110 +6,29 @@ struct ListNode {
 	struct ListNode *next;
 };
 
-struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
-	struct ListNode* header;
-	struct ListNode* rail;
-	struct ListNode* l1List;
-	struct ListNode* l2List;
-	int fristFlag = 1;
-	int i;
-
-	if (NULL == l1)
-		return l2;
-
-	if (NULL == l2)
-		return l1;
-
-	l1List = l1;
-	l2List = l2;
-
-	i = 0;
-	header = l1;
-	rail = l1;
-	l1 = l1->next;
-
-	while (l1&&l2)
-	{
-		if (i % 2 == 0 && rail!=NULL)
-		{
-			rail->next = l2;
-			rail = l2;
-			l2 = l2->next;
-		}
-		else if (l1!=NULL && rail!=NULL)
-		{
-			rail->next = l1;
-			rail = l1;
-			l1 = l1->next;
-		}
-		i++;
-	}
-
-	while (l1)
-	{
-		rail->next = l1;
-		rail = l1;
-		l1 = l1->next;
-	}
-
-	while (l2)
-	{
-		rail->next = l2;
-		rail = l2;
-		l2 = l2->next;
-	}
-
-	return header;
-}
-
 
 struct ListNode* swapPairs(struct ListNode* head) {
-	struct ListNode* l1;
-	struct ListNode* l2;
-	struct ListNode* l1Header;
-	struct ListNode* l2Header;
-	struct ListNode* tmp;
-	struct ListNode* header;
-	struct ListNode* delNode;
-	int i;
-	int firstFlag;
+	struct ListNode* pre;
+	struct ListNode* dummy;
+	struct ListNode* cur;
 
-	if (NULL == head || NULL == head->next)
-		return head;
+	pre = (struct ListNode*)malloc(sizeof(struct ListNode));
+	if (NULL == pre)
+		return NULL;
 
-	l1Header = head;
-	l2Header = head->next;
-	l1 = l1Header;
-	l2 = l2Header;
+	dummy = pre;
+	cur = head;
 
-	firstFlag = 1;
-	while (l1->next)
+	while (cur && cur->next)
 	{
-		if (NULL!=l1 && NULL != l1->next)
-		{
-			if (l1->next->next==NULL)
-			{
-				l1->next = NULL;
-			}
-
-			else
-				l1 = l1->next->next;
-		}
-
-		if (NULL!=l2 && NULL != l2->next)
-			l2 = l2->next->next;
-
-		if (firstFlag)
-		{
-			l1Header->next = l1;
-			l2Header->next = l2;
-			firstFlag = 0;
-		}
+		pre->next = cur->next;
+		cur->next = pre->next->next;
+		pre->next->next = cur;
+		pre = cur;
+		cur = cur->next;
 	}
-	
-	header = mergeTwoLists(l2Header, l1Header);
 
-	return header;
+	return dummy->next;
 }
 
 void main()
@@ -118,24 +37,29 @@ void main()
 	struct ListNode* l1node2;
 	struct ListNode* l2node1;
 	struct ListNode* l2node2;
+	struct ListNode* l2node3;
 	struct ListNode* result;
 
 	l1node1 = (struct ListNode*)malloc(sizeof(struct ListNode));
 	l1node2 = (struct ListNode*)malloc(sizeof(struct ListNode));
 	l2node1 = (struct ListNode*)malloc(sizeof(struct ListNode));
 	l2node2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	l2node3 = (struct ListNode*)malloc(sizeof(struct ListNode));
 
 	l1node1->val = 1;
 	l1node2->val = 2;
 
 	l2node1->val = 3;
 	l2node2->val = 4;
+	l2node3->val = 5;
+
 	l2node2->next = NULL;
 
 	l1node1->next = l1node2;
 	l1node2->next = l2node1;
 	l2node1->next = l2node2;
-	l2node2->next = NULL;
+	l2node2->next = l2node3;
+	l2node3->next = NULL;
 	result = swapPairs(l1node1);
 
 	while (result)
