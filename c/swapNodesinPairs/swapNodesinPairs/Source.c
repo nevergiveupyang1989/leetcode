@@ -6,6 +6,9 @@ struct ListNode {
 	struct ListNode *next;
 };
 
+//为增加操作的便利性，增加一个首节点
+//pre cur表示两个相邻的元素，通过移动这两个元素的位置，改变链表
+//此方法没有增加空间的复杂度
 
 struct ListNode* swapPairs(struct ListNode* head) {
 	struct ListNode* pre;
@@ -18,6 +21,7 @@ struct ListNode* swapPairs(struct ListNode* head) {
 
 	dummy = pre;
 	cur = head;
+	dummy->next = cur;
 
 	while (cur && cur->next)
 	{
