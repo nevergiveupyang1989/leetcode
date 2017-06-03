@@ -2,46 +2,28 @@
 #include <stdlib.h>
 
 int removeDuplicates(int* nums, int numsSize) {
-	int fast;
-	int slow;
-	int size;
+	int start;
+	int key;
+	int i;
 
-	fast = 0;
-	slow = 0;
-	size = 0;
+	start = 1;
+	key = nums[0];
 
-	if (1 == numsSize)
-		return size = 1;
+	if (0 == numsSize)
+		return start-1;
 
-	while (fast<=numsSize-2)
+	for (i = 1; i<numsSize; i++)
 	{
-		if (fast==slow || ((nums[fast] == nums[fast + 1]) && nums[fast]!=nums[slow-1]))
+		if (nums[i] != key)
 		{
-			nums[slow++] = nums[fast];
-			size++;
+			nums[start++] = nums[i];
+			key = nums[i];
 		}
-
-		else if (nums[fast] != nums[fast + 1])
-		{
-			if (nums[fast] != nums[slow-1])
-			{
-				nums[slow++] = nums[fast];
-				nums[slow++] = nums[fast + 1];
-				size += 2;
-			}
-
-			else
-			{
-				nums[slow++] = nums[fast + 1];
-				size++;
-			}
-		}
-
-		fast += 2;
 	}
 
+	nums[start] = key;
 
-	return size;
+	return start;
 }
 
 void main()
