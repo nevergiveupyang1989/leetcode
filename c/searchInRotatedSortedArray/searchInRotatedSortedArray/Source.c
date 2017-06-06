@@ -1,27 +1,74 @@
 #include <stdio.h>
 
+int binarySearch(int* nums, int left, int right, int target)
+{
+	int begin;
+	int end;
+	int mid;	
+	int pos;	
+
+	if(left>=right)
+	{
+		return -1;
+	}	
+	
+	mid = (begin+end)/2;
+	if(nums[mid]<target)
+	{
+		begin = mid+1;
+		pos = binarySearch(nums, begin, end, target);
+	}
+	else
+	{
+		end = mid-1;	
+		pos = binarySearch(nums, begin, end, target);
+	}
+	
+	return pos;		
+}
+
 int search(int* nums, int numsSize, int target)
 {
 	int i;
+	int j;
+	int pos;
+	int left1;
+	int right1;
+	int left2;
+	int right2;
 	
-	if(NULL==nums)
-{
-	return 0;
-}
-
-	for(i=0; i<numsSize; i++)
-{
-	if(nums[i]==target)
-		return i;
-}
-	return -1;
+	j=0;
+	
+	while(j<numsSize-2)
+	{
+		if(nums[j+1]<nums[j])
+		{	
+			pos = j;
+		}
+	}
+	
+	left1 = 0;
+	right1 = pos;
+	left2 = pos+1;
+	right2 = numsSize-1;
+	
+	pos = binarySearch(nums,left1, right1, target);
+	if(-1!=pos)
+	{
+		return pos;
+	}
+	
+	pos = binarySearch(nums,left2, right2, target);
+	
+	return pos;
 }
 
 void main()
 {
-	int nums={1,2,3,4,5}
+	int nums[]={1,2,3,4,5};
 	int target = 3;
 	int numsSize = 5;
-
-	serch(nums,numsSize, target);
+	int pos;
+	
+	pos = search(nums,numsSize,target);
 }
