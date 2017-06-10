@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int abs(int number)
+int numAbs(int number)
 {
+	int MIN_INT = 0x80000000;
+
+	if(number==MIN_INT)
+	{
+		number = number - 1;
+	}
+
 	if(number<0)
 		number = 0-number;
 	return number;
@@ -27,8 +34,8 @@ int divide(int dividend, int divisor)
 		flag = 1;
 	}	
 	
-	dividend = abs(dividend);
-	divisor = abs(divisor);
+	dividend = numAbs(dividend);
+	divisor = numAbs(divisor);
 
 	while(dividend>=divisor)
 	{
@@ -48,8 +55,8 @@ void main()
 	int divisor;
 	int result;
 	
-	dividend = -2;
-	divisor = 3;
+	dividend = -2147483648;
+	divisor = -1;
 	result = divide(dividend, divisor);
 
 	printf("%d", result);
