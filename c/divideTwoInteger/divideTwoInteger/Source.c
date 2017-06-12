@@ -63,6 +63,12 @@ int add(int x, int y)
 	return add(sum, carry);
 }
 
+int subtraction(int x, int y)
+{
+	y = ~y+1;
+	return add(x,y);
+}
+
 void main()
 {
 	int dividend;
