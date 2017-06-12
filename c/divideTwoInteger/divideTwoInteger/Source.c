@@ -49,15 +49,33 @@ int divide(int dividend, int divisor)
 	return result;
 }
 
+int add(int x, int y)
+{
+	int sum;
+	int carry;
+
+	if(y==0)
+		return x;
+	
+	sum = x^y;
+	carry = (x&y)<<1;
+	
+	return add(sum, carry);
+}
+
 void main()
 {
 	int dividend;
 	int divisor;
 	int result;
+	int x,y;
 	
+	x=1;
+	y=2;
 	dividend = -2147483648;
 	divisor = -1;
-	result = divide(dividend, divisor);
-
+	//result = divide(dividend, divisor);
+	
+	result = add(x,y);
 	printf("%d", result);
 }
