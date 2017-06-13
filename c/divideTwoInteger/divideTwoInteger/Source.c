@@ -49,26 +49,6 @@ int divide(int dividend, int divisor)
 	return result;
 }
 
-int add(int x, int y)
-{
-	int sum;
-	int carry;
-
-	if(y==0)
-		return x;
-	
-	sum = x^y;
-	carry = (x&y)<<1;
-	
-	return add(sum, carry);
-}
-
-int subtraction(int x, int y)
-{
-	y = ~y+1;
-	return add(x,y);
-}
-
 void main()
 {
 	int dividend;
