@@ -1,69 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int add(int x, int y)
+int div(int x, int y)
 {
-	int sum,carry;
-	if(0==y)
+	int isPos;
+	int digits;
+	digits = 0;
+	isPos = 0;
+	long res;
+
+	if((x<0 && y<0) || (x>0 && y>0))
 	{
-		return x;
+		isPos = 1;
 	}
 	
-	sum = x^y;
-	carry = (x&y)<<1;
+	x = abs(x);
+	y = abs(y);
 
-	return add(sum,carry);
-}
-
-int subtraction(int x, int y)
-{
-	y = ~y+1;
-	return add(x,y);
-}
-
-int numAbs(int x)
-{
-	int MIN_INT = 0x80000000;
-	int MAX_INT = 0x7fffffff;
+	while(x>=y)
+	{
+		y <<= 1;
+		digits++;
+	}
 	
-	if(MIN_INT == x)
-	{
-		x = MAX_INT;
-	}
-	else
-	{
-		if(x<0)
-		{
-			x = 0 - x;
-		}
-	}
-
-	return x;
 }
 
 int divide(int x, int y)
 {
-	int result;
+	int MIN_INT = 0x80000000;
 	int MAX_INT = 0x7fffffff;
-	int flag = 1;			//flag==1表示其中一个数是负数
+	int result;
 	
-	if((x>=0 && y>0)||(x<0 && y<0))
+	if((x==MIN_INT && y==-1) || (y==0))
 	{
-		flag=0;
+		result = MAX_INT;
 	}
 	
-	x = numAbs(x);
-	y = numAbs(y);
-	result = 0;
-	while(x>=y)
+	else
 	{
-		x = subtraction(x,y);
-		result += add(0,1);		
-	}
-	
-	if(1==flag)
-	{
-		result = 0-result;
+		result = div(x,y);
 	}
 
 	return result;
