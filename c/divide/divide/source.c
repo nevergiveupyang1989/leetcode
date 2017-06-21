@@ -1,6 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+long long longAbs(long long x)
+{
+	int MIN_INT=0x80000000;
+	
+	if(x==MIN_INT)
+	{
+		x = 2147483648;
+	}
+	
+	else if(x<0)
+	{
+		x = 0-x;
+	}
+	
+	return x;
+}
+
 int newDiv(int a, int b)
 {
 	int isPos;
@@ -17,8 +34,8 @@ int newDiv(int a, int b)
 		isPos = 1;
 	}
 	
-	x = abs(x);
-	y = abs(y);
+	x = longAbs(x);
+	y = longAbs(y);
 
 	res = 0;	
 	while(x>=y)
@@ -34,6 +51,10 @@ int newDiv(int a, int b)
 		x -= tmp;
 	}
 	
+	if(isPos==0)
+	{
+		res = 0 - res;
+	}	
 	return res;
 }
 
@@ -48,6 +69,10 @@ int divide(int x, int y)
 		result = MAX_INT;
 	}
 	
+	else if(x==MIN_INT&&y==1)
+	{
+		result = MIN_INT;
+	}
 	else
 	{
 		result = newDiv(x,y);
@@ -61,7 +86,7 @@ void main()
 	int result;
 	int x, y;
 	x=0x80000000;
-	y=-1;
+	y=1;
 	result = divide(x,y);
 
 	printf("%d", result);
