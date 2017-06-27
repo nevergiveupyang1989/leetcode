@@ -25,9 +25,8 @@ int longestValidParentheses(char* s)
 		}
 		else
 		{
-			if(top>0 &&  (s[top]==')' && s[top-1]=='('))
+			if(top>=0 &&  (stack[--top]=='(' && s[i]==')'))
 			{
-				top--;
 				i++;
 				cnt++;
 			}
@@ -44,7 +43,7 @@ int longestValidParentheses(char* s)
 
 void main()
 {
-	char* s =")()())";
+	char* s =")";
 	int result;
 	result = longestValidParentheses(s);
 	printf("%d", result);	
