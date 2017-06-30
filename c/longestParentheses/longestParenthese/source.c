@@ -1,5 +1,6 @@
 #include <stdio.h>
 #define MAX 1000	
+#define maxNum(a,b) ((a)>(b))?(a):(b) 
 
 int longestValidParentheses(char* s)
 {
@@ -8,6 +9,8 @@ int longestValidParentheses(char* s)
 	int i;
 	int top;	
 	int cnt;
+	int maxLen;
+	int curLen;	
 
 	if(NULL==s)
 	{
@@ -16,7 +19,8 @@ int longestValidParentheses(char* s)
 	
 	i=0;
 	top=0;
-	cnt=0;
+	curLen=0;
+	maxLen=0;
 	while(s[i]!='\0')
 	{
 		if(s[i]=='(')
@@ -27,8 +31,17 @@ int longestValidParentheses(char* s)
 		{
 			if(top>=0 &&  (stack[--top]=='(' && s[i]==')'))
 			{
+				if(top==0)
+				{
+					curLen = i+1;			
+				}
+				else
+				{
+					curLen = i-(top+1);
+				}
+				
+				maxLen = maxNum(maxLen,curLen);		
 				i++;
-				cnt++;
 			}
 			else
 			{
@@ -38,12 +51,12 @@ int longestValidParentheses(char* s)
 		}
 	}
 	
-	return cnt;	
+	return maxLen;	
 }
 
 void main()
 {
-	char* s =")";
+	char* s ="()(()()";
 	int result;
 	result = longestValidParentheses(s);
 	printf("%d", result);	
