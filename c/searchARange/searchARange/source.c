@@ -3,108 +3,50 @@
 
 int* searchRange(int* nums, int numsSize, int target, int* returnSize) 
 {
-	int left;
-	int right;
+	int start;
+	int end;
+	int* res;
 	int mid;	
-	int* res;	
-	
+
 	*returnSize = 2;
-
-	if(NULL==nums)
-	{
-		*returnSize = 0;
-		return res;
-	}
-
+	
 	res = (int*)malloc(sizeof(int)*2);
 	if(NULL==res)
-		return NULL;
-	
-	res[0]=-1;
-	res[1]=-1;	
-
-	left = 0;
-	right = numsSize-1;
-
-	while(left<right-1)
 	{
-		mid = (right+left)/2;
-
-		if(target == nums[mid])
-		{
-			if(right==numsSize-1)
-				right = mid;           //寻找左半边
-			else
-				left = mid;
-		}
-		else if(target>nums[left])
-		{
-			left = mid;
-		}
-		else
-		{
-			right = mid;
-		}
+		returnSize = 0;
+		return 	NULL;
 	}
 	
-	if(target == nums[left] || target == nums[right])
-	{
-		if (target == nums[left])
-			res[0] = left;
-		if (target == nums[right])
-			res[1] = right;
-	}
-	
-	else
-		return res;
+	start = 0;
+	end = numsSize-1;
 
-	if(res[1]!=-1 && res[0]!= -1)
+	while(start<end)
 	{
-		return res;
-	}
-
-	left = 1;
-	right = numsSize-1;
-
-	while(left<right-1)
-	{
-		mid = (right+left)/2;
+		mid = start + (end-start)/2;
 		
-		if(target == nums[mid])
+		if(nums[mid]<target)
 		{
-			if(1==left)
-				left = mid;                //寻找右半边
-			else
-				right = mid;
+			start = mid + 1;
 		}
-		else if(target>nums[mid])
+		else if (nums[mid]>target)
 		{
-			right = mid;
+			end = mid - 1;
 		}
 		else
 		{
-			left = mid;
+			if(nums[start]<target)
+				start++;
+			if(nums[end]>target)
+				end--;
 		}
 	}
 	
-	if(target == nums[left] || target == nums[right])
+	if(nums[start]==target)
 	{
-		if(nums[left]==target)
-			res[0] = left;
-		if(nums[right]==target)
-			res[1] = right;
+		res[0]=start;
+		res[1]=end;
 	}
-	
-	if(res[0]==-1 && res[1]==-1)
-		return res;
-	
-	if(res[0]==-1)
-	{
-		res[0] = res[1];
-	}
-	else if(res[1]==-1)
-		res[1] = res[0];
-	
+
 	return res;
 }
 
