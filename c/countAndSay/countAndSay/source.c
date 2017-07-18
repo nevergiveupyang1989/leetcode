@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAX 1000
+int NODECNT=0;
+char* nodeList[MAX];
+
 
 char* count2Str(char* s)
 {
@@ -9,19 +12,18 @@ char* count2Str(char* s)
 	int cnt;
 	int size;	
 	char target;	
-	long sum;	
 	int carry;	
+	int index;	
 	char* result;	
 
 	cnt = 0;
 	size = strlen(s);
 	target = s[0];
-	sum = 0;	
-	carry = 1;
+	index = 0;	
 
-	result = (char*)malloc(sizeof(char)*MAX);
-	if (NULL==result)
-		return 	NULL;	
+	result = (char*)malloc(sizeof(char)*size);
+	if(NULL==result)
+		return NULL;	
 
 	for(i=0; i<size; i++)
 	{
@@ -31,29 +33,24 @@ char* count2Str(char* s)
 		}
 		else
 		{
-			sum += (cnt*10 + (target-'0'))*carry;
+			result[index++] = cnt + '0';
+			result[index++] = target;
 			target = s[i];
-			cnt=1;	
+			cnt=1;
 		}		
 	}
+	result[index++] = cnt + '0';
+	result[index++] = target;
 	
-	sum += (cnt*10 + (target-'0'))*(carry/10);
-	sprintf(result, "%ld", sum);	
-	
+	nodeList[NODECNT++] = result;
+
 	return result;
 }
 
 char* countAndSay(int n)
 {
 	int i;
-	char* s;	
-
-	s = (char*)malloc(sizeof(char)*2);
-	if(NULL==s)
-		return NULL;
-
-	s[0]='1';
-	s[1]='\0';	
+	char* s = "1";	
 
 	if(n<=0)
 	{
@@ -68,10 +65,20 @@ char* countAndSay(int n)
 	return s;
 }
 
+void freeNode()
+{
+	int i;
+	
+	for(i=0; i<NODECNT; i++)
+	{
+		free(nodeList[i]);
+	}
+}
+
 void main()
 {
 	int n,i;
-	n=2;
+	n=5;
 	char* result;
 
 	result = countAndSay(n);
