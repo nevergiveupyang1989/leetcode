@@ -7,14 +7,6 @@
 char ans1[MAX];
 char ans2[MAX];
 
-void swap(char* nums1, int size1, char* nums2, int size2)
-{
-	char* temp;
-	int i;
-	
-	return;
-}
-
 int subOfBigData(char* nums1, char* nums2)
 {
 	int size1;
@@ -23,8 +15,9 @@ int subOfBigData(char* nums1, char* nums2)
 	int i,j;	
 	int maxSize;	
 	int sumSize;	
+	char* temp;	
 
-	isPostive = 1;
+	isPositive= 1;
 	size1 = strlen(nums1);
 	size2 = strlen(nums2);
 	
@@ -35,7 +28,9 @@ int subOfBigData(char* nums1, char* nums2)
 
 	if(size1<size2)
 	{
-		swap(nums1,size1,nums2,size2);
+		temp = nums2;
+		nums2 = nums1;
+		nums1 = temp;
 		isPositive = 0;
 	}
 	
@@ -64,7 +59,24 @@ int subOfBigData(char* nums1, char* nums2)
 	
 	sumSize = (ans1[maxSize-1]!=0)?(maxSize-1):(maxSize-2);
 	
+	if(isPositive==0)
+	{
+		ans1[i] = '-';
+	}
+
 	return sumSize;
 }
 
-void main(){}
+void main()
+{
+	char* nums1;
+	char* nums2;
+	int size;
+
+	scanf("%s", nums1);
+	scanf("%s", nums2);
+
+	size = subOfBigData(nums1, nums2);
+	
+	printf("%d", size);
+}
