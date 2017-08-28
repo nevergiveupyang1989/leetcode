@@ -41,13 +41,12 @@ int mulOfBigData(char* nums1, char* nums2)
 	{
 		for(j=0; j<size1; j++)
 		{
-			result[i] += ans2[i]*ans1[j];
+			result[i] = ((result[i]-'0')+ ans2[i]*ans1[j]) + '0';
 			
-			if(result[i]>10)
+			if(result[i] - '0'>10)
 			{
-				result[i] -= 10;
-				result[i+1]++;
-				result[i] += '0';
+				result[i] =((result[i]-'0')-10) + '0';
+				result[i+1] = (result[i+1]-'0') + '0';
 			}
 		}
 	}
@@ -78,6 +77,6 @@ void main()
 
 	for(i=size-1; i>=0; i--)
 	{
-		printf("%c", result[i]);
+		printf("%d", result[i]);
 	}
 }
