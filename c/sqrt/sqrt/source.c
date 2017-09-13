@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX 46340      
 
 int mySqrt(int x)
 {
@@ -9,12 +10,15 @@ int mySqrt(int x)
 	
 	low = 0;
 	high = x;
+	
 	mid = (low+high)/2;
 	
-	if(mid*mid==x)
+	if(mid>=MAX)
 	{
-		return mid;
-	}	
+		high = MAX;
+	}
+	
+	mid = (low+high)/2;
 	
 	while(mid*mid!=x && low < high)
 	{
@@ -28,16 +32,20 @@ int mySqrt(int x)
 			low = mid + 1;
 		}
 		
-		if(mid*mid == x)
-		{
-			return mid;
-		}
 		mid = (low+high)/2;
 	}
 	
-	high = high - 1;
+	if(mid*mid==x)
+	{
+		return mid;
+	}	
+	
+	if(mid*mid>x)
+	{
+		mid = mid - 1;
+	}
 
-	return high;
+	return mid;
 }
 
 void main()
