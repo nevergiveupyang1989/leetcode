@@ -1,57 +1,60 @@
 #include <stdio.h>
 #include <stdlib.h>
-int cnt = 0;
-
-void sprialMatrix(int x, int y, int row, int col, int* result, int** matrix)
-{
-	int i,j;
-
-	if(x<row && y<col)
-	{
-		for(j=y; j<col; j++)
-		{
-			result[cnt++] = matrix[x][j];		
-		}
-		
-		for(i=x; i<row; i++)
-		{
-			result[cnt++] = matrix[++i][j];
-		}
-		
-		j -= 2;	
-		for(;j>=y; j--)
-		{
-			result[cnt++] = matrix[--i][j];
-		}
-		
-		for(;i>x;i--)
-		{
-			result[cnt++] = matrix[--i][j];
-		}
-		
-		sprialMatrix(x+1,y+1,row-2, col-2, result, matrix);		
-	}
-	return;
-}
 
 int* spiralOrder(int** matrix, int matrixRowSize, int matrixColSize)
 {
-	int row,col;
+	int startx,starty;
+	int visitedRows,visitedCols;
+	int step;
 	int* result;
-	int x,y;
+	int direction;
+	int x[]={1,0,-1,0};
+	int y[]={0,1,0,-1};
+	int rows;
+	int cols;
+	int nums;
+	int cnt;
 
-	row = matrixRowSize;
-	col = matrixColSize;
-	x = 0;
-	y = 0;
-
-	result = (int*)malloc(sizeof(int)*(row*col));
+	startx = 0;
+	starty = 0;
+	visitedRows = 0;
+	visitedCols = 0;
+	step = 0;
+	direction = 0;
+	rows = 	matrixRowSize;
+	cols = matrixColSize;
+	cnt = 0;
+	
+	result = (int*)malloc(sizeof(int)*(matrixRowSize*matrixColSize));
 	if(NULL==result)
 		return NULL;
 	
-	sprialMatrix(x,y,row,col,result, matrix);
+	while(1)
+	{
+		if(x[direction]==0)
+		{
+			nums = cols - visitedRows;			
+		}
+		else
+			nums = rows - visitedCols;
 	
-	return result;		
+		if(nums<=0)
+			break;
+		
+		result[cnt++] = matrix[startx][starty];
+		step++;
+		
+		if(step==nums)
+		{
+			step = 0;
+			visitedRows = x[direction] == 0?0:1;
+			visitedCols = y[direction] == 0?0:1;
+			direction++;
+		}
+		
+		startx += y[direction];
+		starty += x[direction];		
+	}
 }
 
 
