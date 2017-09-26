@@ -33,10 +33,10 @@ int* spiralOrder(int** matrix, int matrixRowSize, int matrixColSize)
 	{
 		if(x[direction]==0)
 		{
-			nums = cols - visitedRows;			
+			nums = rows - visitedRows;			
 		}
 		else
-			nums = rows - visitedCols;
+			nums = cols - visitedCols;
 	
 		if(nums<=0)
 			break;
@@ -75,7 +75,7 @@ void main()
 	matrix[0][0] = 1;
 	matrix[0][1] = 2;
 	matrix[1][0] = 3;
-	matrix[1][2] = 4;
+	matrix[1][1] = 4;
 
 	result = spiralOrder(matrix, r, c);
 	
