@@ -47,14 +47,16 @@ int* spiralOrder(int** matrix, int matrixRowSize, int matrixColSize)
 		if(step==nums)
 		{
 			step = 0;
-			visitedRows = x[direction] == 0?0:1;
-			visitedCols = y[direction] == 0?0:1;
+			visitedRows += x[direction] == 0?0:1;
+			visitedCols += y[direction] == 0?0:1;
 			direction++;
 		}
 		
 		startx += y[direction];
 		starty += x[direction];		
 	}
+	
+	return result;
 }
 
 
