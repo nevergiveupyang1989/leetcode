@@ -14,7 +14,7 @@ bool isNumber(char* s)
 	int digitNum;
 		
 	strSize = strlen(s);	
-
+	
 	while(s[i]==' ')
 		i++;
 	
@@ -42,8 +42,11 @@ bool isNumber(char* s)
 		return False;
 	else
 		return True;	
+	
+	while(s[i]==' ')
+		i++;
 
-	return s[i]=='0';
+	return s[i]==0;
 }
 
 
