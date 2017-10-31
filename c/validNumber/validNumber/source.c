@@ -40,9 +40,21 @@ bool isNumber(char* s)
 	
 	if(pointNum>1 || digitNum<1)
 		return False;
-	else
-		return True;	
 	
+	if(s[i]=='e')
+	{
+		i++;
+		signNum = 0;
+		while(s[i]=='+' || s[i]=='-')
+			signNum++;
+	
+		if(signNum>1)
+			return False;	
+		
+		while(s[i]>='0' && s[i]<= '9')
+			i++;
+	}
+
 	while(s[i]==' ')
 		i++;
 
