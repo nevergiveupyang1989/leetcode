@@ -3,45 +3,92 @@
 
 void setZeroes(int(* matrix)[3], int matrixRowSize, int matrixColSize) {
 	int i,j;
-
+	int isClear;
+	
+	isClear = 0;
 	if(NULL==matrix)
 	    return;
 	
-	for(i=1; i<matrixRowSize; i++)
+	if(matrixRowSize==1 || matrixColSize==1)
 	{
-		for(j=1; j<matrixColSize; j++)
+		if(matrixRowSize==1)
 		{
-			if(matrix[i][j]==0)
+			for(i=0; i<matrixColSize;i++)
 			{
-				matrix[i][0] = 0;
-				matrix[0][j] = 0;
-			}	
-		}
-	}
+				if(matrix[0][i]==0)
+				{
+					isClear = 1;
+					break;
+				}
+			}
+			
+			if(isClear == 0)
+				return;
 
-	for(i=0; i<matrixRowSize; i++)
-	{
-		if(matrix[i][0]==0)
-		{
-			for(j=0; j<matrixColSize; j++)
+			for(i=0; i<matrixColSize; i++)
 			{
-				matrix[i][j] = 0;
+				matrix[0][i] = 0;
 			}
 		}
-	}
-
-
-	for(j=0; j<matrixColSize; j++)
-	{
-		if(matrix[0][j]==0)
+		else
 		{
 			for(i=0; i<matrixRowSize; i++)
 			{
-				matrix[i][j] = 0;
+				if(matrix[i][0]==0)
+				{
+					isClear = 1;
+					break;
+				}
+			}
+			
+			if(isClear==0)
+				return;
+
+			for(i=0; i<matrixRowSize; i++)
+			{
+				matrix[i][0] = 0;
+			}
+		}
+
+		return;
+	}
+
+	else{
+		for(i=1; i<matrixRowSize; i++)
+		{
+			for(j=1; j<matrixColSize; j++)
+			{
+				if(matrix[i][j]==0)
+				{
+					matrix[i][0] = 0;
+					matrix[0][j] = 0;
+				}	
+			}
+		}
+
+		for(i=0; i<matrixRowSize; i++)
+		{
+			if(matrix[i][0]==0)
+			{
+				for(j=0; j<matrixColSize; j++)
+				{
+					matrix[i][j] = 0;
+				}
+			}
+		}
+
+
+		for(j=0; j<matrixColSize; j++)
+		{
+			if(matrix[0][j]==0)
+			{
+				for(i=0; i<matrixRowSize; i++)
+				{
+					matrix[i][j] = 0;
+				}
 			}
 		}
 	}
-
 	return;
 }
 
