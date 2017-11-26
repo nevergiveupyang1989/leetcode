@@ -14,7 +14,8 @@ void sortColors(int* nums, int numsSize) {
 	temp = (int*)malloc(sizeof(int)*tempSize);
 	if(NULL==temp)
 		return;
-	memset(temp,0,tempSize);
+
+	memset(temp,0,sizeof(int*)*tempSize);
 	
 	for(i=0; i<numsSize; i++)
 	{
@@ -26,7 +27,7 @@ void sortColors(int* nums, int numsSize) {
 	{
 		k = 0;
 		
-		while(k<temp[i])
+		while(k<temp[i] && j<numsSize)
 		{
 			nums[j] = i;
 			j++;
@@ -39,9 +40,9 @@ void sortColors(int* nums, int numsSize) {
 
 void main()
 {
-	int nums[] = {0,1,2,0,1,2,0,1,2};
+	int nums[] = {1,1,1,0,1,1,0,0,2,0,0,1,1,2,1,1,1,2,0,0,2,0,2,1,1,0,1,0,0,1,0,2,1,2,2,2,1,0};
 	int size;
 
-	size = 9;
+	size = 38;
 	sortColors(nums, size);
 }
