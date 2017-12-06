@@ -69,6 +69,40 @@ void midOrder(ptreeNode root)
 	midOrder(root->right);
 }
 
+void midOrder2(ptreeNode root)
+{
+	int i;
+	ptreeNode curNode;
+	pseqStack pnewStack;
+	
+	if(NULL==root)
+		return;
+
+	pnewStack = (pseqStack)malloc(sizeof(stack));
+	if(NULL==pnewStack)
+		return;
+	
+	for(i=0; i<SIZE; i++)
+	{
+		pnewStack->stack[i] = NULL;
+	}
+	
+	pnewStack->top = -1;
+	
+	curNode  = root;
+	while(curNode || pnewStack->top!=-1)
+	{
+		while(curNode)
+		{
+			push(pnewStack, curNode);
+			curNode = curNode->left;
+		}
+		curNode = pop(pnewStack);	
+		printf("%d", curNode->num);
+		curNode = curNode->right;
+	}
+}
+
 void preOrder2(ptreeNode root)
 {
 	int i;
@@ -127,5 +161,5 @@ void main()
 	node3->right = NULL;
 
 	//preOrder2(node1);
-	midOrder(node1);
+	midOrder2(node1);
 }
