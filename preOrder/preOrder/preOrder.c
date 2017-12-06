@@ -56,6 +56,19 @@ void preOrder(ptreeNode root)
 	preOrder(curNode->right);
 }
 
+void midOrder(ptreeNode root)
+{
+	ptreeNode curNode;
+
+	if(NULL==root)
+		return ;
+
+	curNode = root;
+	midOrder(root->left);
+	printf("%d", root->num);
+	midOrder(root->right);
+}
+
 void preOrder2(ptreeNode root)
 {
 	int i;
@@ -113,5 +126,6 @@ void main()
 	node3->left = NULL;
 	node3->right = NULL;
 
-	preOrder2(node1);
+	//preOrder2(node1);
+	midOrder(node1);
 }
