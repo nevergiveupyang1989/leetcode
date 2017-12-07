@@ -137,6 +137,16 @@ void preOrder2(ptreeNode root)
 	}
 }
 
+void railOrder(ptreeNode root)
+{
+	if(NULL==root)
+		return;
+
+	railOrder(root->left);
+	railOrder(root->right);
+	printf("%d", root->num);
+}
+
 void main()
 {
 	ptreeNode node1;
@@ -161,5 +171,6 @@ void main()
 	node3->right = NULL;
 
 	//preOrder2(node1);
-	midOrder2(node1);
+	//midOrder2(node1);
+	railOrder(node1);
 }
