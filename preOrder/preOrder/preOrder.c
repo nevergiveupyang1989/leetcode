@@ -42,6 +42,11 @@ ptreeNode pop(pseqStack pstack)
 	return topNode;
 }
 
+ptreeNode getTopEle(pseqStack pstack)
+{
+	return pstack->stack[pstack->top];
+}
+
 void preOrder(ptreeNode root)
 {	
 	int i;
@@ -132,8 +137,15 @@ void preOrder2(ptreeNode root)
 			push(pnewStack, curNode);
 			curNode = curNode->left;
 		}
-		curNode = pop(pnewStack);
-		curNode = curNode->right;
+		curNode = getTopEle(pnewStack);
+
+		if(NULL==curNode->right)
+		{
+			curNode = pop(pnewStack);
+			printf("%d", currNode->num);
+		}
+		else
+			curNode = curNode->right;
 	}
 }
 
@@ -147,6 +159,40 @@ void railOrder(ptreeNode root)
 	printf("%d", root->num);
 }
 
+
+void railOrder2(ptreeNode root)
+{
+	int i;
+	ptreeNode curNode;
+	pseqStack pnewStack;
+	
+	if(NULL==root)
+		return;
+
+	pnewStack = (pseqStack)malloc(sizeof(stack));
+	if(NULL==pnewStack)
+		return;
+	
+	for(i=0; i<SIZE; i++)
+	{
+		pnewStack->stack[i] = NULL;
+	}
+	
+	pnewStack->top = -1;
+	
+	curNode  = root;
+	while(curNode || pnewStack->top!=-1)
+	{
+		while(curNode)
+		{
+			push(pnewStack, curNode);
+			curNode = curNode->left;
+		}
+
+		curNode = pop(pnewStack);
+		curNode = curNode->right;
+	}
+}
 void main()
 {
 	ptreeNode node1;
@@ -172,5 +218,5 @@ void main()
 
 	//preOrder2(node1);
 	//midOrder2(node1);
-	railOrder(node1);
+	railOrder2(node1);
 }
