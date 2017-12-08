@@ -3,10 +3,14 @@
 #include <malloc.h>
 #define SIZE 100
 typedef char dataType;
+#define bool int
+#define TRUE 1
+#define FAUSE 0
 
 struct treeNode
 {
 	dataType num;
+	bool isVisited;
 	struct treeNode* left;
 	struct treeNode* right;
 }treeNode;
@@ -137,15 +141,9 @@ void preOrder2(ptreeNode root)
 			push(pnewStack, curNode);
 			curNode = curNode->left;
 		}
-		curNode = getTopEle(pnewStack);
 
-		if(NULL==curNode->right)
-		{
-			curNode = pop(pnewStack);
-			printf("%d", currNode->num);
-		}
-		else
-			curNode = curNode->right;
+		curNode = pop(pnewStack);
+		curNode = curNode->right;
 	}
 }
 
@@ -186,10 +184,16 @@ void railOrder2(ptreeNode root)
 		while(curNode)
 		{
 			push(pnewStack, curNode);
+			curNode->isVisited = TRUE;
 			curNode = curNode->left;
 		}
-
-		curNode = pop(pnewStack);
+		
+		curNode = getTopEle(pnewStack);
+		if(curNode->right==NULL || curNode->isVisited == TRUE)
+		{
+			curNode = pop(pnewStack);
+			printf("%d", curNode->num);
+		}
 		curNode = curNode->right;
 	}
 }
@@ -203,6 +207,10 @@ void main()
 	node2 = (ptreeNode)malloc(sizeof(treeNode));
 	node3 = (ptreeNode)malloc(sizeof(treeNode));
 	
+	node1->isVisited = FAUSE;
+	node2->isVisited = FAUSE;
+	node3->isVisited = FAUSE;
+
 	node1->num = 1;
 	node2->num = 2;
 	node3->num = 3;
