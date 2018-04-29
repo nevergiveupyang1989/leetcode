@@ -2,10 +2,19 @@
 
 class Solution():
     def __init__(self,n):
-        self.res = []
+        '''
+        self.res is for allCombine
+
+        self.step_soln and self.full_soln is for combine 
+        '''
+
         self.nthData = [None]*n
         self.createNthData(n)
         self.num = n
+        
+        self.step_soln = []
+        self.full_soln = []
+        self.res = []
 
     def createNthData(self, n):
         if n<0 :
@@ -33,14 +42,23 @@ class Solution():
         
         return self.res
 
-    def combine(self, n, k):
-        pass
-        
+    def combine(self, n, k, start):
+        if len(self.step_soln) == k:
+            self.full_soln.append(self.step_soln[:])
+        else:
+            for i in xrange(start, n+1):
+                self.step_soln.append(i)
+                self.combine(n,k,start+1)
+                self.step_soln.pop()
+
+        return self.full_soln
+
 if __name__ == '__main__':
-    n = 3
+    n = 2
     #import pdb
     #pdb.set_trace()
     solution = Solution(n)
-    res = solution.allCombine(0,n)
-    
+    #res = solution.allCombine(0,n)
+    res = solution.combine(n,2,0)
+
     print res
