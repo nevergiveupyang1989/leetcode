@@ -20,31 +20,40 @@ def createTree():
 
 class LevelTraversal(object):
     def __init__(self):
-        self.res=[]
+        self.res=[[]]
         self.que=[]
     
     def queIsEmpty(self):
-        if len(self.que) == 0:
+        if len(self.que) == 1 and self.que[0] == '*':
             return True
         return False
 
     def solution(self, root):
         topNode = None
+        idle = '*'
 
         if root is None:
             return
 
         self.que.append(root)
+        self.que.append(idle)
 
         while(self.queIsEmpty() is not True):
-            topNode = self.que.pop()
-            self.res.append(topNode.val)
+            topNode = self.que.pop(0)
 
-            if topNode.right is not None:
-                self.que.append(topNode.right)
-
-            if topNode.left is not None:
+            if topNode == '*' :
+                self.res.append([])
+            else:
+                self.res[-1].append(topNode.val)
+            
+            if topNode != '*' and topNode.left is not None:
                 self.que.append(topNode.left)
+            
+            if topNode != '*' and topNode.right is not None:
+                self.que.append(topNode.right)
+            
+            if self.que[-1] != '*':
+                self.que.append(idle)
 
         return self.res
 
