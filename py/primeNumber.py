@@ -15,8 +15,18 @@ def isPrimeNumber1(number):
 
     return True
 
-'''
+
 def isPrimeNumber2(number):
+    '''
+    1、小于5只有2，3是素数
+
+    2、通过观察大于5的素数基本都是6X-1,6X+1（7，11，13...），所以以6为周期将一个周期之类的数表示如下：
+    6X-1,6X,6X+1,6X+2,6X+3,6X+4
+
+    由上可知：6x,6x+2[2(3x+1)],6x+3[3(2x+1)],6x+4[2(3x+2)]肯定不是素数；
+    6x-1和6x+1可能是素数，则以6为步进值，观察6x+1,6x-1是不是素数即可    
+    '''
+
     if number == 2 or number == 3:
         return True
     
@@ -30,7 +40,7 @@ def isPrimeNumber2(number):
             return False
 
     return True
-'''
+
 
 def generateNum(numList):
     return filter(isPrimeNumber1, numList)
