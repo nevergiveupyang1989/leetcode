@@ -21,7 +21,7 @@ class Solution:
         self.lastRow = self.curRow 
 
     def minimumTotal(self, triangle):
-        self.sum == triangle[0][0]
+        self.sum = triangle[0][0]
         for i,each in enumerate(triangle):
             if i != 0:
                 self.totalSum(each, triangle)
@@ -30,7 +30,7 @@ class Solution:
 
 if __name__ == '__main__':
     solution = Solution()
-    triangle= [[1], [2,3], [4,5,6]]
+    triangle= [[1], [2,1], [4,1,6]]
 
     sum_ = solution.minimumTotal(triangle)
 
