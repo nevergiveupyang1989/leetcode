@@ -4,15 +4,13 @@ class Solution:
     def maxProfit(self, prices):
         if prices == []:
             return 0
-        max = 0
+        max_ = 0
+        min_ = prices[0]
 
-        for i in xrange(len(prices)):
-            for j in xrange(i,len(prices)):
-                if prices[i] < prices[j]:
-                    if prices[j]-prices[i] > max:
-                        max = prices[j] - prices[i]
-        
-        return max 
+        for i in xrange(1,len(prices)):
+            max_ = max(max_, prices[i]-min_)
+            min_ = min(min_, prices[i])
+        return max_   
 
 if __name__ == '__main__':
     solution = Solution()
