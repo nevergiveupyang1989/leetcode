@@ -25,6 +25,10 @@ class Solution(object):
         
         self.max = max(self.max, max(tmp, self.tmp))
         self.maxPathSum(root.left)
+        
+        if root.val < 0:
+            self.tmp = 0
+
         self.maxPathSum(root.right)
 
         return self.max 
