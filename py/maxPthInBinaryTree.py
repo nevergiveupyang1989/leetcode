@@ -12,27 +12,28 @@ class Solution(object):
         self.tmp = 0
 
     def maxPathSum(self, root):
-        tmp = 0
-
         if root is None:
-            return 
-        
-        if root.val > 0:
-            self.tmp += root.val
-        else:
-            tmp = self.tmp 
-            self.tmp = 0
-        
-        self.max = max(self.max, max(tmp, self.tmp))
-        self.maxPathSum(root.left)
-        
-        if root.val < 0:
-            self.tmp = 0
+            return 0
 
-        self.maxPathSum(root.right)
+        res = [root.val]
 
-        return self.max 
+        self.help(root, res)
 
+        return res 
+    
+    def help(self, root, result):
+        '''
+        res[0]采用列表，是值引用，每一层递归都会改变此值,表示最大的值
+        '''
+        if root is None:
+            return 0
+
+        left = self.help(root.left, result)
+        right = self.help(root.right, result)
+
+        result[0] = max(result[0], max(left,0)+max(right,0)+root.val)
+
+        return max(root.val,root.val+left, root.val+right)
 
 if __name__ == '__main__':
     node1 = TreeNode(-10)
