@@ -9,17 +9,17 @@ class Solution(object):
         colSize = len(board)
 
         for i in xrange(rowSize):
-            for j in xrange(colSie):
-                if i == 0 or i == rowSize-1 or j == 0 or j == colSize:
+            for j in xrange(colSize):
+                if i == 0 or i == rowSize-1 or j == 0 or j == colSize-1:
                     if board[i][j] == 'O':
-                        dfs(board, i, j)
-
+                        self.dfs(board, i, j)
+        print board
         for i in xrange(rowSize):
-            for j in xrange(colSie):
-                if board[i][j] == '*':
-                    board[i][j] = 'O'
+            for j in xrange(colSize):
                 if board[i][j] == 'O':
                     board[i][j] = 'X'
+                if board[i][j] == '*':
+                    board[i][j] = 'O'
                          
     
     def dfs(self, board, rowIdx, colIdx):
@@ -29,12 +29,19 @@ class Solution(object):
         board[rowIdx][colIdx] = '*'
 
         for i in xrange(4):
-            if rowIdx + row[i]>= 0 and rowIdx + row[i] <= len(board[0]) and colIdx + col[i] >= 0 and colIdx+col[i] <= len(board) and board[rowIdx+row[i]][colIdx+col[i]] == 'O':
+            if rowIdx + row[i]>= 0 and rowIdx + row[i] < len(board[0]) and colIdx + col[i] >= 0 and colIdx+col[i] < len(board) and board[rowIdx+row[i]][colIdx+col[i]] == 'O':
                 self.dfs(board, rowIdx+row[i], colIdx+col[i])
 
 
 if __name__ == '__main__':
-    pass 
+    board =[["X","O","X","O","X","O"],["O","X","O","X","O","X"],["X","O","X","O","X","O"],["O","X","O","X","O","X"]] 
+    
+    s = Solution()
+    s.solve(board)
+
+    print board 
+
+
 
 
                         
